@@ -1,34 +1,27 @@
 import { NextPage } from 'next';
-import App from 'next/app';
-import Link from 'next/link';
-import fetch from 'isomorphic-unfetch';
 import Layout from '../components/MyLayout';
+import { Provider } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
+import store from '../redux/store';
 
-const Home: NextPage = (props: any) => (
-  <Layout>
-    <h1>Batman TV Shows</h1>
-    <h1>super man</h1>
-    <ul>
-      {props.shows.map((show: any) => (
-        <li key={show.id}>
-          <Link href="/show/[id]" as={`/show/${show.id}`}>
-            <a>{show.name}</a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </Layout>
-);
+const Home: NextPage = (props: any) => {
+  const { Component, pageProps, store } = props;
 
-Home.getInitialProps = async function() {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-  const data = await res.json();
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
+};
 
-  console.log(`Show data fetched. Count: ${data.length}`);
+Home.getInitialProps = async function(context: any) {
+  const { Component, ctx } = context;
+  const pageProps = Component.getInitialProps
+    ? await Component.getInitialProps(ctx)
+    : {};
 
-  return {
-    shows: data.map((entry: any) => entry.show)
-  };
+  //Anything returned here can be accessed by the client
+  return { pageProps };
 };
 
 export default Home;
