@@ -12,7 +12,11 @@ declare module '*.json' {
   export = data;
 }
 
+declare module '*.css' {
+  const styles: any;
+  export = styles;
+}
+
 interface Window {
-  // gtag(type: any, value: any, parameters: any): void;
-  // initGeetest: any;
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
 }

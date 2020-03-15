@@ -1,38 +1,38 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import {
-  decrementCounter,
-  incrementCounter
-} from '../redux/actions/counterActions';
+import { useEffect } from 'react';
+import Layout from '../components/MyLayout';
+import Link from 'next/link';
+import fetch from 'isomorphic-unfetch';
+import { useSelector, useDispatch } from 'react-redux';
+import { getHomeList } from '@/redux/actions/homeActions';
 
-class App extends React.Component {
-  static getInitialProps({ store }: { store: any }) {}
+const Index = props => {
+  const { homeState } = useSelector((state: any) => ({
+    homeState: state.home
+  }));
+  const dispatch = useDispatch();
+  const { list = [] } = homeState;
+  useEffect(() => {
+    dispatch(getHomeList());
+  }, []);
 
-  constructor(props: any) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={(this.props as any).incrementCounter}>
-          Increment
-        </button>
-        <button onClick={(this.props as any).decrementCounter}>
-          Decrement
-        </button>
-        <h1>{(this.props as any).counter}</h1>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state: any) => ({
-  counter: state.counter.value
-});
-
-const mapDispatchToProps = {
-  incrementCounter: incrementCounter,
-  decrementCounter: decrementCounter
+  return (
+    <Layout>
+      <h1>Batman TV Shows</h1>
+      <ul>
+        {list.map((item, index) => (
+          <li key={index}>{item.name}</li>
+        ))}
+      </ul>
+    </Layout>
+  );
 };
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+Index.getInitialProps = async function({ store }) {
+  try {
+    await store.dispatch(getHomeList());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export default Index;

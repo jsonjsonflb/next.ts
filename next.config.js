@@ -1,6 +1,11 @@
 const fetch = require('isomorphic-unfetch');
 const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
+const path = require('path');
+
+const resolve = relative => {
+  return path.resolve(__dirname, relative);
+};
 
 module.exports = withCSS(
   withSass({
@@ -24,11 +29,18 @@ module.exports = withCSS(
 
       return paths;
     },
+    pageExtensions: ['jsx', 'js', 'ts', 'tsx'],
     // scss 配置
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 2,
       localIdentName: '[name]__[local]__[hash:base64:5]'
+    },
+    webpack(webpackConfig, options) {
+      webpackConfig.resolve.alias['@pages'] = resolve('pages');
+      webpackConfig.resolve.alias['@'] = resolve('./');
+      webpackConfig.resolve.alias['@static'] = resolve('public/static');
+      return webpackConfig;
     }
   })
 );

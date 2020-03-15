@@ -1,6 +1,13 @@
+import { useEffect } from 'react';
+import { getHome } from '@/redux/actions/homeActions';
 import Layout from '../components/MyLayout';
+import { useDispatch } from 'react-redux';
 
-export default function About() {
+function About() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getHome());
+  }, []);
   return (
     <Layout>
       <p>This is the about page</p>
@@ -8,3 +15,13 @@ export default function About() {
     </Layout>
   );
 }
+
+About.getInitialProps = async function({ store }) {
+  try {
+    await store.dispatch(getHome());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export default About;
