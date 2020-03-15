@@ -1,46 +1,60 @@
-const fetch = require('isomorphic-unfetch');
+const withPlugins = require('next-compose-plugins');
+const withCss = require('@zeit/next-css');
 const withSass = require('@zeit/next-sass');
-const withCSS = require('@zeit/next-css');
 const path = require('path');
 
-const resolve = relative => {
-  return path.resolve(__dirname, relative);
+if (typeof require !== 'undefined') {
+  require.extensions['.css'] = file => {};
+}
+
+const resolve = pathName => {
+  return path.resolve(__dirname, pathName);
 };
 
-module.exports = withCSS(
-  withSass({
-    // 用于export静态页面
-    exportTrailingSlash: true,
-    exportPathMap: async function() {
-      const paths = {
-        '/': { page: '/' },
-        '/about': { page: '/about' }
-      };
-      const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-      const data = await res.json();
-      const shows = data.map(entry => entry.show);
+const nextConfig = {
+  webpack: (config, { isServer }) => {
+    config.resolve.alias['@pages'] = resolve('pages');
+    config.resolve.alias['@'] = resolve('./');
+    config.resolve.alias['@static'] = resolve('public/static');
 
-      shows.forEach(show => {
-        paths[`/show/${show.id}`] = {
-          page: '/show/[id]',
-          query: { id: show.id }
-        };
+    if (isServer) {
+      const antStyles = /antd\/.*?\/style\/css.*?/;
+      const origExternals = [...config.externals];
+      config.externals = [
+        // eslint-disable-line
+        (context, request, callback) => {
+          // eslint-disable-line
+          if (request.match(antStyles)) return callback();
+          if (typeof origExternals[0] === 'function') {
+            origExternals[0](context, request, callback);
+          } else {
+            callback();
+          }
+        },
+        ...(typeof origExternals[0] === 'function' ? [] : origExternals)
+      ];
+
+      config.module.rules.unshift({
+        test: antStyles,
+        use: 'null-loader'
       });
-
-      return paths;
-    },
-    pageExtensions: ['jsx', 'js', 'ts', 'tsx'],
-    // scss 配置
-    cssModules: true,
-    cssLoaderOptions: {
-      importLoaders: 2,
-      localIdentName: '[name]__[local]__[hash:base64:5]'
-    },
-    webpack(webpackConfig, options) {
-      webpackConfig.resolve.alias['@pages'] = resolve('pages');
-      webpackConfig.resolve.alias['@'] = resolve('./');
-      webpackConfig.resolve.alias['@static'] = resolve('public/static');
-      return webpackConfig;
     }
-  })
+    return config;
+  }
+};
+
+module.exports = withPlugins(
+  [
+    [withCss],
+    [
+      withSass,
+      {
+        cssModules: true,
+        cssLoaderOptions: {
+          localIdentName: '[path]___[local]___[hash:base64:5]'
+        }
+      }
+    ]
+  ],
+  nextConfig
 );

@@ -11,18 +11,10 @@ const Index = props => {
   }));
   const dispatch = useDispatch();
   const { list = [] } = homeState;
-  useEffect(() => {
-    dispatch(getHomeList());
-  }, []);
 
   return (
     <Layout>
-      <h1>Batman TV Shows</h1>
-      <ul>
-        {list.map((item, index) => (
-          <li key={index}>{item.name}</li>
-        ))}
-      </ul>
+      <div className={'banner_warp'}></div>
     </Layout>
   );
 };
