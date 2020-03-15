@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import { Button } from 'antd';
+import { Input } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 
 const navList: any[] = [
   { title: '网站首页', url: '/' },
@@ -11,6 +13,9 @@ const navList: any[] = [
 ];
 
 export default function Header() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div className={'header_wrap'}>
       <div className={'inner_wrap'}>
@@ -28,7 +33,28 @@ export default function Header() {
               ))}
             </ul>
             <div className={'login_wrap'}>
-              <Button>llll</Button>
+              <div className={'login_inner'}>
+                <div>
+                  <input
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    placeholder="账号"
+                  />
+                </div>
+                <div>
+                  <input
+                    value={password}
+                    type={'password'}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="密码"
+                  />
+                  <span>忘记？</span>
+                </div>
+                <div className={'btn_wrap'}>
+                  <button className={'login_btn'}>登录</button>
+                  <button className={'register_btn'}>注册</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -36,7 +62,6 @@ export default function Header() {
 
       <style jsx>{`
         .header_wrap {
-          height: 120px;
           position: relative;
         }
 
@@ -45,12 +70,13 @@ export default function Header() {
           top: 0;
           width: 100%;
           height: 120px;
+          z-index: 99;
         }
         .opacity_bg {
           position: absolute;
           height: 100%;
           width: 100%;
-          opacity: 0.3;
+          opacity: 0.8;
           z-index: -1;
           background-color: #fff;
         }
@@ -89,14 +115,62 @@ export default function Header() {
         }
         .login_wrap {
           flex: 1;
+          padding-left: 20px;
+        }
+
+        .login_inner {
+          display: flex;
+          align-items: center;
           height: 120px;
+        }
+
+        .login_inner > div {
+          position: relative;
+          border-radius: 3px;
+          margin-left: 10px;
+          background: #fff url('./static/home/zhanghu.png') no-repeat 6px center;
+        }
+
+        .login_inner > div > span {
+          font-size: 12px;
+          position: absolute;
+          top: 4px;
+          right: 0;
+          cursor: pointer;
+        }
+
+        .login_inner input {
+          width: 75px;
+          height: 25px;
+          border: none;
+          outline: none;
+          background-color: transparent;
+          padding-left: 25px;
+          font-size: 12px;
+        }
+        .login_inner > .btn_wrap {
+          background: transparent;
+        }
+
+        .btn_wrap button {
+          width: 50px;
+          height: 25px;
+          border-radius: 3px;
+          border: 1px solid #cc0601;
+          outline: none;
+          font-size: 12px;
+          cursor: pointer;
+        }
+        .login_btn {
+          background-color: #cc0601;
+          color: #fff;
+        }
+        .register_btn {
+          color: #cc0601;
+          margin-left: 10px;
+          background: transparent;
         }
       `}</style>
     </div>
   );
 }
-
-// 设置别名
-// config.resolve.alias['@pages'] = resolve('pages');
-// config.resolve.alias['@'] = resolve('./');
-// config.resolve.alias['@static'] = resolve('public/static');

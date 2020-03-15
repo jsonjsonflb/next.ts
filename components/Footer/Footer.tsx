@@ -18,7 +18,6 @@ export default function Header() {
         .footer_wrap {
           height: 371px;
           position: relative;
-          background-color: #fff;
         }
         .footer_inner {
           width: 1440px;

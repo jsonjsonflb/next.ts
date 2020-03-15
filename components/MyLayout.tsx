@@ -3,14 +3,16 @@ import Footer from './Footer/Footer';
 
 export default function Layout(props: any) {
   return (
-    <div>
+    <div className={'main_content'}>
       <Header />
-      <div className={'main_content'}>{props.children}</div>
+      <div>{props.children}</div>
       <Footer />
       <style jsx>
         {`
           .main_content {
-            height: calc(100vh-120px);
+            background: #fff url('./static/home/main_bg.png') no-repeat center
+              top;
+            background-size: contain;
           }
         `}
       </style>

@@ -1,0 +1,132 @@
+.warp {
+  min-width: 1440px;
+  width: 1440px;
+  margin: 0 auto;
+  background-color: #eff2fe;
+  .banner {
+    img {
+      width: 100%;
+    }
+  }
+  .content_wrap {
+    padding-top: 110px;
+    display: flex;
+
+    .ranking_wrap {
+      width: 270px;
+
+      .inner_wrap {
+        width: 260px;
+        margin: 0 auto;
+        height: 320px;
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
+
+        .title {
+          width: 245px;
+          margin: 0 auto;
+          height: 40px;
+          padding-left: 35px;
+          background: url('/static/home/renqi.png') no-repeat 10px center;
+          border-bottom: 1px solid #d0daff;
+          box-sizing: border-box;
+          font-size: 18px;
+          line-height: 40px;
+          font-weight: bold;
+        }
+
+        .content {
+          height: 280px;
+          li {
+            margin-top: 15px;
+            display: flex;
+            padding-left: 5px;
+            > div {
+              line-height: 37px;
+            }
+            .position {
+              width: 40px;
+              height: 37px;
+              background-size: 26px auto;
+              background-position: center center;
+              background-repeat: no-repeat;
+            }
+            .detail {
+              box-sizing: border-box;
+              width: 160px;
+              height: 37px;
+              background-size: 37px 37px;
+              background-position: left center;
+              padding-left: 37px;
+            }
+            .num {
+              color: red;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+    .content_r {
+      width: 900px;
+
+      .section_wrap {
+        .section_title {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #dadefe;
+
+          .title_l {
+            display: flex;
+            align-items: center;
+
+            .icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 50px;
+              width: 156px;
+              color: #fff;
+              font-size: 18px;
+              margin-right: 15px;
+              background: url('/static/home/title_bg.png') no-repeat left center;
+              img {
+                height: 26px;
+                margin-right: 5px;
+              }
+            }
+          }
+          .title_r {
+            a {
+              font-size: 16px;
+              display: block;
+              width: 60px;
+              line-height: 50px;
+              text-decoration: none;
+              color: #666;
+              &:hover {
+                color: red;
+              }
+            }
+          }
+        }
+
+        .section_list {
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          margin-bottom: 80px;
+
+          li {
+            margin-top: 30px;
+            width: 270px;
+            height: 110px;
+            background-color: #fff;
+            box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+  }
+}
