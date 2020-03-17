@@ -1,0 +1,104 @@
+.renk_list {
+  width: 100%;
+  height: 100%;
+}
+
+.renk_list_title {
+  width: 245px;
+  margin: 0 auto;
+  height: 40px;
+  padding-left: 35px;
+  background: url('/static/home/renqi.png') no-repeat 10px center;
+  border-bottom: 1px solid #d0daff;
+  box-sizing: border-box;
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+.list_wrap {
+  overflow-y: auto;
+  li {
+    display: flex;
+    align-items: center;
+    height: 85px;
+    margin-top: 3px;
+
+    .icon_wrap {
+      width: 50px;
+      background-position: 12px center;
+      background-repeat: no-repeat;
+      background-image: url('/static/image/common/three.png');
+      height: 100%;
+      position: relative;
+
+      span {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 35px;
+        margin-left: -13px;
+        color: #d11d19;
+        width: 28px;
+        height: 28px;
+        text-align: center;
+        line-height: 28px;
+        font-weight: bold;
+      }
+    }
+
+    &:nth-child(1) {
+      .icon_wrap {
+        background-image: url('/static/image/common/one.png');
+      }
+    }
+    &:nth-child(2) {
+      .icon_wrap {
+        background-image: url('/static/image/common/three.png');
+      }
+    }
+
+    .head_wrap {
+      display: flex;
+      .head {
+        flex: 1;
+        display: block;
+        width: 45px;
+        height: 45px;
+        background-color: #999;
+      }
+      .info {
+        flex: 1;
+        padding: 0 10px;
+        .info_u {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .title {
+            font-size: 14px;
+            color: 222;
+          }
+          .arrow {
+            width: 45px;
+            height: 26px;
+            font-size: 12px;
+            text-align: center;
+
+            p {
+              line-height: 12px;
+            }
+          }
+        }
+        .info_d {
+          display: flex;
+          > p {
+            font-size: 12px;
+            margin-right: 10px;
+            color: #d11d19;
+          }
+        }
+      }
+    }
+  }
+}

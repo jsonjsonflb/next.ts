@@ -1,0 +1,33 @@
+.recommend_content {
+  .header {
+    height: 64px;
+    background: url('/static/image/common/schedule_bg.png') no-repeat center
+      center;
+    background-size: cover;
+
+    h1 {
+      font-size: 25px;
+      color: #fff;
+      text-align: center;
+      line-height: 64px;
+    }
+  }
+
+  .record_wrap {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+
+    p {
+      font-size: 16px;
+      color: #999;
+      line-height: 60px;
+      margin-right: 20px;
+
+      span {
+        color: #d11d19;
+      }
+    }
+  }
+}

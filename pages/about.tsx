@@ -1,10 +1,10 @@
-import style from './about.module.scss';
+import './about.module.css';
 
 export default function Header() {
   return (
-    <div className={style.footer_wrap}>
-      <p>123</p>
-      <div className={'footer_inner'}></div>
+    <div>
+      <p className={'footer_wrap'}>123</p>
+      <div></div>
     </div>
   );
 }

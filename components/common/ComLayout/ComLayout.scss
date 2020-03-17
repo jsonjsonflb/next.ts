@@ -1,0 +1,25 @@
+.content_wrap {
+  padding: 0 8px;
+  margin-top: 80px;
+  display: flex;
+  &:after {
+    content: '';
+  }
+
+  .left {
+    width: 270px;
+    height: 490px;
+    box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    background-color: #fff;
+  }
+  .right {
+    flex: 1;
+    padding-left: 30px;
+    > div {
+      width: 860px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+  }
+}

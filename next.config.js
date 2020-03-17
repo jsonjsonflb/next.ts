@@ -51,7 +51,7 @@ module.exports = withPlugins(
       {
         cssModules: true,
         cssLoaderOptions: {
-          localIdentName: '[path]___[local]___[hash:base64:5]'
+          localIdentName: '[name]___[local]___[hash:base64:5]'
         }
       }
     ]

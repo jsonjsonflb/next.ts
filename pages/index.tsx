@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
 import Layout from '../components/MyLayout';
-import Link from 'next/link';
-import { getHomeList } from '@/redux/actions/homeActions';
+// import { getHomeList } from '@/redux/actions/homeActions';
+import ListItem from '@/components/Home/ListItem';
+import PushHand from '@/components/Home/PushHand';
+import Schedule from '@/components/Home/Schedule';
+import Banner from '@/components/common/Banner/Banner';
 import style from '@/scss/home.scss';
 
 // 排行榜
@@ -34,41 +36,11 @@ const infoList: any = [
   }
 ];
 
-const Index = props => {
-  // 信息栏
-  const itemList = (item: any) => {
-    return (
-      <div className={style.section_wrap}>
-        <div className={style.section_title}>
-          <div className={style.title_l}>
-            <div className={style.icon}>
-              <img src={item.icon} alt="" />
-              <p>{item.title}</p>
-            </div>
-
-            <p>{item.desc}</p>
-          </div>
-          <div className={style.title_r}>
-            <Link href={item.url} as={item.url}>
-              <a>更多></a>
-            </Link>
-          </div>
-        </div>
-        <ul className={style.section_list}>
-          {[1, 1, 1, 1, 1, 1].map((item, index) => (
-            <li key={index}></li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
-
+const Index = (props: any) => {
   return (
     <Layout>
       <div className={style.warp}>
-        <div className={style.banner}>
-          <img src={'./static/home/banner1.png'} alt="" />
-        </div>
+        <Banner />
         <section className={style.content_wrap}>
           <div className={style.ranking_wrap}>
             <div className={style.inner_wrap}>
@@ -88,9 +60,15 @@ const Index = props => {
             </div>
           </div>
           <div className={style.content_r}>
-            {itemList(infoList[0])}
-            {itemList(infoList[1])}
-            {itemList(infoList[2])}
+            <ListItem item={infoList[0]}>
+              <PushHand />
+            </ListItem>
+            <ListItem item={infoList[1]}>
+              <PushHand />
+            </ListItem>
+            <ListItem item={infoList[2]}>
+              <Schedule />
+            </ListItem>
           </div>
         </section>
       </div>
@@ -99,11 +77,11 @@ const Index = props => {
 };
 
 Index.getInitialProps = async function({ store }) {
-  try {
-    await store.dispatch(getHomeList());
-  } catch (error) {
-    console.error(error);
-  }
+  // try {
+  //   await store.dispatch(getHomeList());
+  // } catch (error) {
+  //   console.error(error);
+  // }
 };
 
 export default Index;

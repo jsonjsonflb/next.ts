@@ -1,18 +1,18 @@
 import Link from 'next/link';
-import { Input } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const navList: any[] = [
   { title: '网站首页', url: '/' },
-  { title: 'VIP推手', url: '/about' },
-  { title: '实力推手', url: '/' },
-  { title: '今日赛程', url: '/' },
-  { title: '盘口分析', url: '/' },
-  { title: '新闻详情', url: '/' }
+  { title: 'VIP推手', url: '/vippush' },
+  { title: '实力推手', url: '/spush' },
+  { title: '今日赛程', url: '/1' },
+  { title: '盘口分析', url: '/2' },
+  { title: '新闻详情', url: '/3' }
 ];
 
-export default function Header() {
+export default function Header(props: any) {
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,7 +27,11 @@ export default function Header() {
               {navList.map((item, index) => (
                 <li key={index}>
                   <Link href={item.url} as={item.url}>
-                    <a>{item.title}</a>
+                    <a
+                      className={item.url === router.pathname ? 'a_active' : ''}
+                    >
+                      {item.title}
+                    </a>
                   </Link>
                 </li>
               ))}
@@ -112,6 +116,11 @@ export default function Header() {
           text-decoration: none;
           padding: 0 15px;
           text-align: center;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .nav_r_ul li .a_active {
+          color: #d11d19;
         }
         .login_wrap {
           flex: 1;
