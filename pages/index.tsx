@@ -1,10 +1,11 @@
 import Layout from '../components/MyLayout';
-// import { getHomeList } from '@/redux/actions/homeActions';
+import { getHomeList } from '@/redux/actions/homeActions';
 import ListItem from '@/components/Home/ListItem';
 import PushHand from '@/components/Home/PushHand';
 import Schedule from '@/components/Home/Schedule';
 import Banner from '@/components/common/Banner/Banner';
 import style from '@/scss/home.scss';
+import { useEffect } from 'react';
 
 // 排行榜
 const rangking: any[] = [
@@ -37,6 +38,11 @@ const infoList: any = [
 ];
 
 const Index = (props: any) => {
+  useEffect(() => {
+    if (props.errors) {
+      console.error(props.errors);
+    }
+  }, []);
   return (
     <Layout>
       <div className={style.warp}>
@@ -77,11 +83,17 @@ const Index = (props: any) => {
 };
 
 Index.getInitialProps = async function({ store }) {
-  // try {
-  //   await store.dispatch(getHomeList());
-  // } catch (error) {
-  //   console.error(error);
-  // }
+  let errors: any[] = [];
+  try {
+    await store.dispatch(getHomeList());
+  } catch (error) {
+    const errorItem = {
+      message: error.message,
+      url: error.config.url ? error.config.url : ''
+    };
+    errors.push(errorItem);
+  }
+  return { errors };
 };
 
 export default Index;
